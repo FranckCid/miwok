@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class FamilyFragment extends Fragment {
 
+    public FamilyFragment(){}
+
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle){
         View v = layoutInflater.inflate(R.layout.word_list, viewGroup, false);
@@ -32,14 +34,14 @@ public class FamilyFragment extends Fragment {
             words.add(new Word("grandmother", "ama", R.drawable.family_grandmother, R.raw.family_grandmother));
             words.add(new Word("grandfather", "paapa", R.drawable.family_grandfather, R.raw.family_grandfather));
 
-            WordAdapter itemsAdapter = new WordAdapter((Activity) viewGroup.getContext(), words, R.color.category_family);
+            WordAdapter itemsAdapter = new WordAdapter(getActivity(), words, R.color.category_family);
 
             ListView listView = (ListView) v.findViewById(R.id.list);
 
             listView.setAdapter(itemsAdapter);
 
         }catch(Exception e){
-            Toast t = Toast.makeText((Activity) viewGroup.getContext(), "OH CHUCK" + e.getMessage(), Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(getActivity(), "OH CHUCK" + e.getMessage(), Toast.LENGTH_LONG);
             t.show();
         }
 

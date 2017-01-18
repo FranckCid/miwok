@@ -1,16 +1,14 @@
 package com.franckcid.miwok;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
 
-public class MainActivity extends ActionBarActivity implements android.support.v7.app.ActionBar.TabListener{
+public class MainActivity extends AppCompatActivity {
 
-    private ActionBar actionBar;
     private ViewPager viewPager;
     private MiwokPageAdapter pagerAdapter;
 
@@ -22,38 +20,14 @@ public class MainActivity extends ActionBarActivity implements android.support.v
         pagerAdapter = new MiwokPageAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(2);
 
         try {
-            getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-            ActionBar.Tab numbersTab = getSupportActionBar().newTab().setText("Numbers").setTabListener(this);
-            ActionBar.Tab familyTab = getSupportActionBar().newTab().setText("Family").setTabListener(this);
-            ActionBar.Tab colorsTab = getSupportActionBar().newTab().setText("Colors").setTabListener(this);
-            ActionBar.Tab phrasesTab = getSupportActionBar().newTab().setText("Phrases").setTabListener(this);
-
-            getSupportActionBar().addTab(numbersTab);
-            getSupportActionBar().addTab(familyTab);
-            getSupportActionBar().addTab(colorsTab);
-            getSupportActionBar().addTab(phrasesTab);
-
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
         }catch (Exception e){
             e.printStackTrace();
         }
 
-
-    }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
     }
 }

@@ -2,6 +2,7 @@ package com.franckcid.miwok;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
@@ -9,7 +10,7 @@ import android.util.Log;
  * Created by franck on 17/01/17.
  */
 
-public class MiwokPageAdapter extends FragmentStatePagerAdapter {
+public class MiwokPageAdapter extends FragmentPagerAdapter {
 
     public MiwokPageAdapter(FragmentManager fm) {
         super(fm);
@@ -22,7 +23,6 @@ public class MiwokPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.i("Position requested: ", " - - - - -" + position);
         switch (position){
             case 0:
                 return new NumbersFragment();
@@ -36,4 +36,18 @@ public class MiwokPageAdapter extends FragmentStatePagerAdapter {
         return null;
     }
 
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position){
+            case 0:
+                return "Numbers";
+            case 1:
+                return "Family";
+            case 2:
+                return "Colors";
+            case 3:
+                return "Phrases";
+        }
+        return "";
+    }
 }
