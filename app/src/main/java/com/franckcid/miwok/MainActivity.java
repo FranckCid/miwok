@@ -1,55 +1,59 @@
 package com.franckcid.miwok;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ActionBarActivity implements android.support.v7.app.ActionBar.TabListener{
+
+    private ActionBar actionBar;
+    private ViewPager viewPager;
+    private MiwokPageAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView numbers = (TextView) findViewById(R.id.numbers);
-        numbers.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent activity = new Intent(MainActivity.this, NumbersActivity.class);
-                startActivity(activity);
-            }
-        });
+        pagerAdapter = new MiwokPageAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(pagerAdapter);
 
-        TextView phrases = (TextView) findViewById(R.id.phrases);
-        phrases.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent activity = new Intent(MainActivity.this, PhrasesActivity.class);
-                startActivity(activity);
-            }
-        });
+        try {
+            getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        TextView family = (TextView) findViewById(R.id.family);
-        family.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent activity = new Intent(MainActivity.this, FamilyActivity.class);
-                startActivity(activity);
-            }
-        });
+            ActionBar.Tab numbersTab = getSupportActionBar().newTab().setText("Numbers").setTabListener(this);
+            ActionBar.Tab familyTab = getSupportActionBar().newTab().setText("Family").setTabListener(this);
+            ActionBar.Tab colorsTab = getSupportActionBar().newTab().setText("Colors").setTabListener(this);
+            ActionBar.Tab phrasesTab = getSupportActionBar().newTab().setText("Phrases").setTabListener(this);
 
-        TextView colors = (TextView) findViewById(R.id.colors);
-        colors.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent activity = new Intent(MainActivity.this, ColorsActivity.class);
-                startActivity(activity);
-            }
-        });
+            getSupportActionBar().addTab(numbersTab);
+            getSupportActionBar().addTab(familyTab);
+            getSupportActionBar().addTab(colorsTab);
+            getSupportActionBar().addTab(phrasesTab);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+    }
 }

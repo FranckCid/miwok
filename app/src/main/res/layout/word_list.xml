@@ -7,4 +7,4 @@
     android:layout_height="match_parent"
     android:background="@color/tan_background"
     android:drawSelectorOnTop="true"
-    tools:context="com.franckcid.miwok.NumbersActivity" />
+    tools:context="com.franckcid.miwok.NumbersFragment" />
